@@ -1,0 +1,6 @@
+transformers
+langchain
+streamlit
+scikit-learn
+torch
+sentence-transformers
