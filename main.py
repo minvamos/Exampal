@@ -1,12 +1,14 @@
 from chatbot import Chatbot
 from streamlit_app import run_streamlit_app
 from gemma_model import load_gemma_model
+from config.settings import HUGGINGFACE_API_TOKEN
 import huggingface_hub
+import streamlit as st
 
 
 if __name__ == "__main__":
-    # HuggingFace 로그인
-    huggingface_hub.login()
+    # # HuggingFace 로그인
+    # huggingface_hub.login()
 
     # Gemma 모델 로드
     print('모델 로드하는 중...')

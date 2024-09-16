@@ -1,6 +1,8 @@
 from transformers import AutoTokenizer, pipeline
 from config.settings import HUGGINGFACE_API_TOKEN
+import streamlit as st
 
+@st.cache_resource
 def load_gemma_model():
     # Hugging Face에서 Gemma 모델 불러오기
     model_name = "google/gemma-2b"
