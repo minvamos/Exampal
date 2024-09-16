@@ -25,7 +25,13 @@ class Chatbot:
         """
         시험 내용을 기반으로 Gemma 모델로 질문 생성.
         """
-        prompt = f"Based on this content: '{exam_content}', ask a related question."
+        prompt_template = """You are a teacher. Make a quiz based on what's in here.
+
+        Context:
+        {}
+        """
+
+        prompt = f"{prompt_template.format(exam_content)}"
         print(f"Prompt: {prompt}")
         # TextGenerationPipeline은 텍스트만 반환함으로 딕셔너리 형태가 아님
         generated_output = self.model(prompt, max_length=100, truncation=True)
