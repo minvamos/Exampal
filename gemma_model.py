@@ -5,7 +5,7 @@ import streamlit as st
 @st.cache_resource
 def load_gemma_model():
     # Hugging Face에서 Gemma 모델 불러오기
-    model_name = "google/gemma-2b"
+    model_name = "google/gemma-2b-it"
     
     # 토크나이저 생성
     tokenizer = AutoTokenizer.from_pretrained(model_name, return_token_type_ids=False)
