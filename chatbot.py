@@ -33,9 +33,11 @@ class Chatbot:
 
         prompt = f"{prompt_template.format(exam_content)}"
         print(f"Prompt: {prompt}")
+        print('-'*50)
         # TextGenerationPipeline은 텍스트만 반환함으로 딕셔너리 형태가 아님
-        generated_output = self.model(prompt, max_length=100, truncation=True)
+        generated_output = self.model(prompt, max_length=500, truncation=True)
         print(f"Generated Output: {generated_output}")
+        print('-'*50)
         self.add_to_history("model", generated_output[0]['generated_text'])
         return generated_output[0]['generated_text']
 
@@ -47,7 +49,9 @@ class Chatbot:
         
         # 모델을 사용해 정답을 생성
         correct_answer = self.model(correct_answer_prompt, max_length=100)
-        
+        print(correct_answer)
+        print('-'*50)
+
         # 간단한 유사도 검증 로직 추가 가능
         is_correct = self.check_similarity(user_answer, correct_answer[0]['generated_text'])
         
