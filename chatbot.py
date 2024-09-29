@@ -25,16 +25,28 @@ class Chatbot:
         """
         시험 내용을 기반으로 Gemma 모델로 질문 생성.
         """
-        prompt_template = """You are a teacher. Make a quiz based on what's in here.
+        
+        # 사용자 입력을 번호로 나누어 청킹
+        content_chunks = exam_content.strip().split('\n')
+        
+        # 청크 수 확인
+        num_chunks = len(content_chunks)
 
-        Context:
+        prompt_template = """You are a teacher. Create EXACTLY "8" quiz questions based on the provided content.
+
+        The content is structured as follows:
         {}
+        
+        Please distribute the questions appropriately among the content provided and ensure that a total of 8 questions are generated.
         """
 
-        prompt = f"{prompt_template.format(exam_content)}"
+        # 청크 내용을 포맷팅
+        formatted_content = "\n".join(f"{i + 1}. {chunk}" for i, chunk in enumerate(content_chunks))
+        prompt = prompt_template.format(formatted_content)
+
         print(f"Prompt: {prompt}")
         # TextGenerationPipeline은 텍스트만 반환함으로 딕셔너리 형태가 아님
-        generated_output = self.model(prompt, max_length=100, truncation=True)
+        generated_output = self.model(prompt, max_length=200, truncation=True)
         print(f"Generated Output: {generated_output}")
         self.add_to_history("model", generated_output[0]['generated_text'])
         return generated_output[0]['generated_text']

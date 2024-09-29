@@ -9,6 +9,8 @@ def run_streamlit_app(chatbot):
     # 버튼 클릭 상태 추적
     if 'generating_question' not in st.session_state:
         st.session_state.generating_question = False
+    if 'user_answer' not in st.session_state:
+        st.session_state.user_answer = ""
 
     if st.button("문제 생성", disabled=st.session_state.generating_question):
         if exam_content:
@@ -19,11 +21,14 @@ def run_streamlit_app(chatbot):
                 st.write(f"생성된 문제: {question}")
 
                 # 사용자의 답변 입력
-                user_answer = st.text_input("답변을 입력하세요:")
+                st.session_state.user_answer = st.text_input("답변을 입력하세요:", value=st.session_state.user_answer)
                 
                 if st.button("답변 확인"):
-                    if user_answer:
-                        is_correct, correct_answer = chatbot.evaluate_user_answer(user_answer)
+                    if st.session_state.user_answer:
+                        with st.spinner("정답 확인 중..."):  # 대기 스피너 추가
+                            is_correct, correct_answer = chatbot.evaluate_user_answer(st.session_state.user_answer)
+                            
+                        # 정답 여부 출력
                         if is_correct:
                             st.write("정답입니다!")
                         else:
