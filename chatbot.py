@@ -37,7 +37,7 @@ class Chatbot:
         The content is structured as follows:
         {}
         
-        Please distribute the questions appropriately among the content provided and ensure that a total of 8 questions are generated.
+        Please distribute the questions appropriately among the content provided and ensure that a total of 8 questions are generated, not more or less than 8, just 8.
         """
 
         # 청크 내용을 포맷팅
@@ -46,7 +46,7 @@ class Chatbot:
 
         print(f"Prompt: {prompt}")
         # TextGenerationPipeline은 텍스트만 반환함으로 딕셔너리 형태가 아님
-        generated_output = self.model(prompt, max_length=200, truncation=True)
+        generated_output = self.model(prompt, max_length=300, truncation=True)
         print(f"Generated Output: {generated_output}")
         self.add_to_history("model", generated_output[0]['generated_text'])
         return generated_output[0]['generated_text']
