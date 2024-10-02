@@ -49,6 +49,7 @@ if __name__ == "__main__":
             user_input = '\n\n**Exam Content**\n\n' + st.session_state["exam_content"]
             st.session_state["chat_session"].append({"role":"user", "text":user_input})
             st.session_state.status = 1
+            st.rerun()
     
 
     # ai : 질문 생성
@@ -75,6 +76,7 @@ if __name__ == "__main__":
                 st.markdown(user_answer)
             st.session_state["chat_session"].append({"role": "user", "text": user_answer})
             st.session_state.status = 3
+            st.rerun()
         
 
     # ai : 피드백 생성
