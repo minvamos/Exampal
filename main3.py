@@ -46,7 +46,8 @@ if __name__ == "__main__":
         if st.session_state["exam_content"] is None: # 시험 내용 입력을 기다림
             st.session_state["exam_content"] = st.chat_input("시험 내용을 입력하세요.")
         if st.session_state["exam_content"]: # 사용자가 입력을 하면 다음 단계로 진행
-            st.session_state["chat_session"].append({"role":"user", "text":st.session_state["exam_content"]})
+            user_input = '\n\n**Exam Content**\n\n' + st.session_state["exam_content"]
+            st.session_state["chat_session"].append({"role":"user", "text":user_input})
             st.session_state.status = 1
     
 
@@ -70,8 +71,9 @@ if __name__ == "__main__":
             st.session_state["answer"] = st.chat_input("문제에 답하시오.")
         if st.session_state["answer"]: # 사용자가 입력을 하면 다음 단계로 진행
             with st.chat_message("user"):
-                st.markdown(st.session_state["answer"])
-            st.session_state["chat_session"].append({"role": "user", "text": st.session_state["answer"]})
+                user_answer = '\n\n**Your Answer**\n\n' + st.session_state["answer"]
+                st.markdown(user_answer)
+            st.session_state["chat_session"].append({"role": "user", "text": user_answer})
             st.session_state.status = 3
         
 
@@ -81,6 +83,7 @@ if __name__ == "__main__":
             message_placeholder = st.empty() # DeltaGenerator 반환
             with st.spinner("피드백 생성 중입니다."):
                 feedback = chatbot.ask_question(st.session_state["answer"])
+                feedback = '\n\n**Feedback**\n\n' + feedback
                 st.markdown(feedback)
             st.session_state["chat_session"].append({"role":"model", "text":feedback})
             st.session_state["answer"] = None
