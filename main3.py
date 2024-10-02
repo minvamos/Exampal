@@ -57,7 +57,7 @@ if __name__ == "__main__":
             with st.spinner("질문 생성 중입니다."):
                 quiz = chatbot.ask_question(st.session_state["exam_content"])
                 st.markdown(quiz)
-            st.session_state["chat_session"].append({"role":"ai", "text":quiz})
+            st.session_state["chat_session"].append({"role":"model", "text":quiz})
         st.session_state.status = 2
     
 
@@ -81,8 +81,8 @@ if __name__ == "__main__":
             with st.spinner("피드백 생성 중입니다."):
                 feedback = chatbot.ask_question(st.session_state["answer"])
                 st.markdown(feedback)
-            st.session_state["chat_session"].append({"role":"ai", "text":feedback})
+            st.session_state["chat_session"].append({"role":"model", "text":feedback})
             st.session_state["answer"] = None
-        st.session_state.status = 4
-        if st.button("문제 생성"):
+        st.session_state.status = 1
+        if st.button("또 다른 문제 생성"):
             pass
