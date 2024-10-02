@@ -59,6 +59,7 @@ if __name__ == "__main__":
                 st.markdown(quiz)
             st.session_state["chat_session"].append({"role":"model", "text":quiz})
         st.session_state.status = 2
+        st.rerun()
     
 
     # user : 답변 입력
