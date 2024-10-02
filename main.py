@@ -61,34 +61,6 @@ if __name__ == "__main__":
                 st.markdown(quiz)
             st.session_state["chat_session"].append({"role":"model", "text":quiz})
         st.session_state.status = 2
-        st.rerun()
-    
-
-    # user : 답변 입력
-    if st.session_state.status == 2:
-        if "answer" not in st.session_state:
-            st.session_state["answer"] = None
-        if st.session_state["answer"] is None: # 메시지 입력을 기다림
-            st.session_state["answer"] = st.chat_input("문제에 답하시오.")
-        if st.session_state["answer"]: # 사용자가 입력을 하면 다음 단계로 진행
-            with st.chat_message("user"):
-                user_answer = '\n\n**Your Answer**\n\n' + st.session_state["answer"]
-                st.markdown(user_answer)
-            st.session_state["chat_session"].append({"role": "user", "text": user_answer})
-            st.session_state.status = 3
-            st.rerun()
-        
-
-    # ai : 피드백 생성
-    if st.session_state.status == 3:
-        with st.chat_message("ai"):
-            message_placeholder = st.empty() # DeltaGenerator 반환
-            with st.spinner("피드백 생성 중입니다."):
-                feedback = chatbot.ask_question(st.session_state["answer"])
-                feedback = '\n\n**Feedback**\n\n' + feedback
-                st.markdown(feedback)
-            st.session_state["chat_session"].append({"role":"model", "text":feedback})
-            st.session_state["answer"] = None
-        st.session_state.status = 1
         if st.button("또 다른 문제 생성"):
             pass
+        st.rerun()
