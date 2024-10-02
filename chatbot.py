@@ -31,13 +31,15 @@ class Chatbot:
 
         Context:
         {}
+        
+        Please distribute the questions appropriately among the content provided and ensure that a total of 8 questions are generated, not more or less than 8, just 8.
         """
 
         prompt = f"{prompt_template.format(exam_content)}"
         print(f"Prompt: {prompt}")
         print('-'*50)
         # TextGenerationPipeline은 텍스트만 반환함으로 딕셔너리 형태가 아님
-        generated_output = self.model(prompt, max_length=500, truncation=True)
+        generated_output = self.model(prompt, max_length=300, truncation=True)
         print(f"Generated Output: {generated_output}")
         print('-'*50)
         model_question = generated_output[0]['generated_text'][len(prompt):]
